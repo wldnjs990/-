@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">JSSShop</span>
+            <span class="badge bg-dark">Dark 🔄</span>
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-icon">ㅇ</span>
+            </button>
+        </div>
+        <div class="scroll-gage">
+            <span class="gage-bar"></span>
+        </div>
+    </nav>
+    <script>
+        window.addEventListener('scroll', function(){
+            let now = window.scrollY;
+            let length = window.innerHeight;
+            let page = document.body.clientHeight;
+            let percent = now / (page - length) * 100 // 현재 페이지 위치(퍼센트 환산)
+            percent = Math.min(percent , 100); // 최대값을 100으로 고정함
+            document.querySelector('.gage-bar').style.width = `${percent}%`;
+        })
+    </script>
+    <script>
+        document.getElementsByClassName('badge')[0].addEventListener('click', function(){
+            let b = document.querySelector('.badge');
+            if(b.classList.contains('bg-dark')){
+                b.classList.remove('bg-dark');
+                b.classList.add('bg-light');
+                b.innerHTML = 'light 🔄';
+                document.getElementsByTagName('body')[0].classList.add('dark')
+            } else {
+                b.classList.remove('bg-light');
+                b.classList.add('bg-dark');
+                b.innerHTML = 'dark 🔄';
+                document.getElementsByTagName('body')[0].classList.remove('dark')
+            }
+        })
+        /**/
+        window.addEventListener('scroll', function(){
+            // console.log(window.scrollY) - y축으로 얼마나 스크롤바를 내렸는가 확인
+            // window.scrollTo(0, 100); - 화면 강제로 위치변경 하기(bootstrap 라이브러리 설치하면 스무스하게 스크롤됨)
+            // window.scrollBy(0, 1); - 현제 화면에서 추가로 스크롤 시키기
+            // $(window).scrollTop - div박스 등의 상황에서 스크롤바 내린 높이를 구할떈 scrollTop 사용
+            // $(window).scrollTop(100) - jquery식 화면 강제로 위치변경
+            if(window.scrollY >= 100){
+                document.getElementsByClassName('navbar-brand')[0].style.fontSize = '10px';
+            } else {
+                document.getElementsByClassName('navbar-brand')[0].style.fontSize = 'inherit';
+            }
+            // document.querySelector('html').scrollHeight 현재 페이지 실제높이 구하고 싶으면 
+            // document.querySelector('html').clientHeight 현재 보이는 페이지 높이 구하고 싶으면 
+        })
+    </script>
+    <!---->
+    <div class="text-box" style="width: 200px; height: 100px; overflow-y: scroll;">
+        대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리 대충 솰라솰라 하는 소리
+    </div>
+    <script>
+        document.getElementsByClassName('text-box')[0].addEventListener('scroll', function(){
+            let 양 = document.querySelector('.text-box').scrollTop; // scrollTop는 스크롤을 내린 양이라서 div 화면에 보이는 높이만큼 계산이 안됨
+            // 따라서 scrollTop + 눈에 보이는 div박스 높이 == scrollHeight(div의 실제높이)
+            let 실제높이 = document.querySelector('.text-box').clientHeight; // div 박스의 실제높이
+            let 높이 = document.querySelector('.text-box').scrollHeight; // scrollHeight는 스크롤의 높이라서 맨 끝까지 표시됨
+            if(양 + 실제높이 >= 높이 - 1){
+                alert('세계의 끝에 도달하셨군요.')
+            }
+        })
+    </script>
+    <!---->
+    <h2 id="hello">안녕하세요</h2>
+    <h2 id="hi">올때메로나</h2>
+
+    <script>
+
+        document.getElementById('hello').innerHTML = '안녕';
+        document.getElementById('hello').style.color = 'red';
+        document.getElementById('hello').style.background = 'blue';
+        document.getElementById('hello').style.fontSize = '30px';
+
+        document.getElementById('hi').innerHTML = '올때바밤바';
+
+        /*
+        document - 웹문서
+        . - ~의
+        getElementById - HTML요소 가져와(id)
+        innerHTML - 내부글자
+        '' - 안에 문자가 들어감
+        = - 대입(오른쪽에 있는걸 왼쪽에 집어넣어주세요) ex) document.getElementById('hi').innerHTML = '올때바밤바'; '올때바밤바'를 document.getElementById('hi').innerHTML에 집어넣어주세요
+
+        ** 구글링 해서 필요한 변경명령어 검색해서 알맞게 배열하면 HTML변경 가능 **
+
+        */
+
+    </script>
+
+    <div class="alert-box" id="alert">Alert 박스<button class="close" onclick="destroy('none')">x</button></div>
+    <button onclick="document.getElementById('alert').style.display = 'block';">버튼</button>
+    <!--onclick - 클릭하면 자바스크립트 실행하게 하는 문법-->
+
+    <script>
+        
+        function destroy(blank){
+            document.getElementById('alert').style.display = blank;
+        }
+        function alive(blank){
+            document.getElementById('alert').style.display = 'block';
+            document.getElementById('alert').style.display = blank;
+        }
+        alive('none');
+        /*
+        function - 긴 코드를 한 단어로 축약할때 사용
+        () - paramiter(추가 함수기능 생성)
+        */
+
+    </script>
+    
+    <div class="hw-alert" id="alert-hw">
+        <span class="rename">rename 이름 변경칸</span>
+        <button class="hw-close">x</button>
+    </div>
+    <div>
+        <button onclick="showing('아이디를 입력 안했어요')">아이디</button>
+        <button onclick="showing('비번을 입력 안했어요')">비번</button>
+    </div>
+
+    <script>
+        function showing(rename){
+            document.getElementById('alert-hw').style.display = 'block';
+            document.getElementsByClassName('rename')[0].innerHTML = rename;
+        }
+        function closing(){
+            document.getElementById('alert-hw').style.display = 'none'
+        }
+        /*
+        getElementsByClassName - html요소 가져와(class) 
+        단, class관련된 모든 요소를 가져오는거라 [] <-  안에 몇번째 class요소인지 반드시 적어야 함. 아니면 오류 생김
+        ex) getElementsByClassName('***')[0] <- '***' 클래스의 0번째(컴퓨터에선 0번째가 첫번째임)를 가져와줘
+        */
+
+        document.getElementsByClassName('hw-close')[0].addEventListener('click', function(){
+            closing()
+        });
+
+        /*
+        addEventListner - 왼쪽의 요소가 paramiter안에 조건을 달성하면 실행되어라
+        $ = jquery 함수임 = document.getElementById('***'), document.getElementsByClassName('***')[]
+        jquery식 함수들이 따로 있음
+        ex) $('#***').html('앙'); = document.getElementById('***').innerHTML('앙')
+        */
+    </script>
+
+    <h4 id="test">안녕하세요</h4>
+    <script>
+        $('#test').html('히히 바보');
+        $('#test').attr('class', 'yellow-bg');
+    </script>
+    <!---->
+    <button id="login">로그인</button>
+    <div class="modal-popup">
+        <div class="popup-box">
+            <p>로그인창</p>
+            <form action="sucess.html"><!--action으로 form 안에 정보 전송 가능-->
+                <div class="my-3">
+                  <input type="text" class="form-control" id="id">
+                 </div>
+                 <div class="my-3">
+                   <input type="password" class="form-control" id="password">
+                 </div>
+                 <button type="submit" class="btn btn-primary">로그인</button>
+                 <button type="button" class="btn btn-danger" id="modal-close">닫기</button>
+            </form> 
+        </div>
+    </div>
+    <script>
+        document.getElementById('login').addEventListener('click', function(){
+            $('.modal-popup').addClass('show-modal')
+        })
+        $('#modal-close').click(function(){
+            $('.modal-popup').removeClass('show-modal')
+        })
+
+        document.getElementsByClassName('modal-popup')[0].addEventListener('click', function(e){
+            e.target; 
+            // 유저가 실제로 누른거
+            e.currentTarget; 
+            // 이벤트 리스너 달린 곳(this)
+            e.preventDefault(); 
+            // 이번트 기본동작(click, submit 등등) 막아줌
+            e.stopPropagation();
+            // 내 상위요소로 이벤트 버블링(클릭한 요소의 부모요소 까지 이벤트가 퍼지는 현상 ex. 자식노드 클릭 이벤트 발생시 부모노드까지 클릭된 것으로 판정) 막아줌
+            if(e.target == document.querySelector('.modal-popup'))
+            document.getElementsByClassName('modal-popup')[0].classList.remove('show-modal')
+        })
+    </script>
+    <script>
+
+        /*전송버튼 누르면 저기 input에 입력한값이 공백이면 알림창 띄워주세여*/
+        document.getElementsByClassName('btn-primary')[0].addEventListener('click', function(e){
+            let id = document.getElementById('id').value;
+            let password = document.getElementById('password').value;
+            if(id==''){
+                e.preventDefault()
+                alert('아이디 다시 확인하셈')
+            } else if( !/^\S+@\S+\.\S+$/.test(id) ){
+                e.preventDefault()
+                alert('이메일 형식 맞는지 확인하셈')
+            } else if(password ==''){
+                e.preventDefault()
+                alert('비밀번호 다시 확인하셈')
+            } else if(password.length < 6){
+                e.preventDefault()
+                alert('비밀번호 6자리 이상 입력하셈')
+            } else if(!/^[A-Z]/.test(password)){
+                e.preventDefault()
+                alert('첫 글자는 대문자로 써주셈')
+            } else {
+                alert('로그인 성공')
+            }
+            
+            
+        })
+            console.log(/^\S+@\S+\.\S+$/.test(id))
+
+    </script>
+    <!---->
+    <script>
+        /*input 태그에서 무언가 변할때 생기는 eventlistner == input, change*/
+        document.getElementById('id').addEventListener('input', function(){
+            console.log('안녕')
+        })
+        /*change는 input에서 무언가 변하고 다른 곳을 클릭(focus)했을때 작동함*/
+        document.getElementById('password').addEventListener('change', function(){
+            if(document.getElementById('password').value.length < 6){
+                console.log('짧아')
+            }
+        })
+    </script>
+    <!---->
+     <script>
+        if(1==2){
+            console.log('틀려')
+        }
+        if(1!=2){
+            console.log('맞아')
+        }
+        /* != 는 그 조건문이 거짓이면 true로 판단한다. */
+        if(1=='1'){
+            console.log('맞을까?')
+        }
+        if(1==='1'){
+            console.log('틀린듯!')
+        }
+        /* == 느슨한 비교
+           === 엄격한 비교  */
+        if(1==1 && 2==2){
+        console.log('둘 다 맞네!')
+        }
+        if(1==1 || 3==2){
+        console.log('둘 중 하나는 맞네!')
+        }
+
+
+        function 삼육구게임(count){
+            if(count % 3 === 0){
+                console.log('배수임')
+            } else {
+                console.log('배수아님')
+            }
+        }
+        삼육구게임(1)
+        /*js에서 %는 나머지를 계산하는 역할을 함 ex) 6%3 = 0, 5%3 = 1*/
+
+        function 삼육구게임ver2(count){
+            if(count % 9 === 0){
+                console.log('짝짝쓰')
+            }
+             else if(count % 3 === 0){
+                console.log('짝')
+            }
+             else {
+                console.log('패쓰')
+            }
+        }
+        삼육구게임ver2(9)
+
+        function 시험결과(a, e){
+            if(a > 100 || e >100){
+                console.log('구라 ㄴ')
+            }
+             else if((a >= 40 && e >= 40) && a + e >= 120){
+                console.log('합격')
+            }
+             else {
+                console.log('불합격')
+            }
+        }
+        시험결과(100, 0)
+     </script>
+    <!---->
+    <script>
+        let 이름 = 'kim';/*"let 이름" 변수 선언 /  "= 'kim'" 변수 할당*/
+        이름 = 'park';/*재할당 가능*/
+        function 범위(){
+            let range = '범위'
+            console.log(range);
+        }
+        범위();
+        /*"let range = '범위'"함수가 function 안에서 만들어진 변수라서 바깥에까지 범위가 끼치지 못한다. */
+        /*변수별 범위
+            var = 재선언O, 재할당O, function 안에서 범위제한
+            let = 재선언X, 재할당O, {}중괄호 안에서 범위제한 ex) if{} 여기에 범위제한 걸림
+            const = 재선언X, 재할당X, {}중괄호 안에서 범위제한 ex) if{} 여기에 범위제한 걸림
+        */
+    </script>
+    <!---->
+    <script>
+        
+
+        function bank(e, 예금액){
+            let count = 0;
+            let 미래예금액 = 0;
+            if(예금액 - 50000 >= 0){
+                for(count = 0; count < e; count++) {
+                    예금액 = 예금액 + (예금액*0.2)
+                }
+                미래예금액 = 예금액;
+                console.log(미래예금액);
+            } else {
+                for(count = 0; count < e; count++) {
+                    예금액 = 예금액 + (예금액*0.15)
+                }
+                미래예금액 = 예금액;
+                console.log(미래예금액);
+            }
+        }
+        bank(2, 60000);
+
+        function 쌀먹(a){
+            count = 0
+            let first = a;
+            let price = a;
+            for(count = 0; count < 2; count++){
+                first = first * 2/3
+                price = price + first;
+            }
+            console.log(price);
+        }
+        쌀먹(360);
+    </script>
+    <!---->
+    <p>문제. 태조 이성계가 태어난 연도는?</p>
+    <input type="text" id="answer">
+    <button id="send-answer">제출</button>
+    <!---->
+    <script>
+        let num = 0;
+        document.getElementById('send-answer').addEventListener('click', function(){
+            num++;
+            let answer = 1335;
+            if(document.querySelector('#answer').value == answer){
+                alert('정답이에용');
+                num = 0;
+            } else if(num > 2){
+                alert('바보 ㅋㅋ');
+            } else {
+                alert('오답이에용');
+            }
+            console.log(num);
+        })
+    </script>
+    <!---->
+    <div class="alert alert-danger">
+        <span id="sec">5</span>초 이내 구매시 사은품 증정!
+    </div>
+    <script>
+        let sec =  document.getElementById('sec');
+        let count = 5;
+        setTimeout(function(){
+            document.querySelector('.alert').style.display = 'none';
+        }, 5000);
+        setInterval(function(){
+            if(count > 0){
+                sec.innerHTML = count - 1;
+                count = count - 1;
+            }
+        }, 1000)
+        /*
+        if, var, function = 자바스크립트 문법
+
+        document.querySelector(), setTimeout(), alert() = 브라우저 사용법(Web Browser API)
+        */
+       setTimeout(함수, 1000)
+       function 함수(){
+        console.log('안녕')
+       }
+       document.getElementsByClassName('alert')[0].addEventListener('click', 함수)
+       /*콜백함수에 만들어놓은 함수 넣을 수 있음*/
+    </script>
+    <!--
+        정규식(regular expression)
+
+        /\S@\S.\S/.test('wl990@naver.com')
+        /\S+@\S+\.\S+/.test('wl990@naver.com')
+    -->
+
+    <!--캐러셀(메뉴슬라이드)-->
+    <div class="slide-container">
+        <div class="slide-wrap">
+            <div class="slide r"></div>
+            <div class="slide g"></div>
+            <div class="slide b"></div>
+            <div class="slide p"></div>
+        </div>
+        <span class="prev">이전</span>
+        <span class="next">다음</span>
+    </div>
+    <div class="slide-pagination">
+        <span class="btn">1</span>
+        <span class="btn">2</span>
+        <span class="btn">3</span>
+        <span class="btn">4</span>
+    </div>
+    <script>
+        let position = 0;
+        let slidepage = 0;
+        let slidewrap = document.getElementsByClassName('slide-wrap')[0];
+        let slidenum = document.querySelector('.slide-wrap').childElementCount;
+        let btn = document.querySelectorAll('.slide-pagination > .btn'); // .btn 노드를 전부 가져옴
+        console.log(btn.length)
+        for(let i = 0; i < btn.length; i++){ // .btn의 갯수만큼 for문이 반복되며 내가 클릭했던 n번째수의 .btn순서에서 클릭 이벤트가 발생한걸 인지하고 이벤트를 실행함
+            btn[i].addEventListener('click', function(){ // 클릭했던 n번째수의 .btn을 실행하므로 querySelectorAll의 [n]번째가 변수 i에 저장된다.
+            let idx = i; // n번째 값을 클로저 안에 변수로 새로 지정함(오류방지용..?)
+            slidepage = idx; // 따라서 .btn의 n번째 수에 따라 slidepage의 페이지 번째 수가 결정된다.
+            position = -300 * slidepage
+            slidewrap.style.transform = `translateX(${position}px)`;
+        })
+        }
+        document.getElementsByClassName('next')[0].addEventListener('click', function(){
+            if(slidepage < slidenum - 1){
+                slidepage += 1;
+                position = -300 * slidepage;
+                slidewrap.style.transform = `translateX(${position}px)`;
+            }
+        })
+        document.getElementsByClassName('prev')[0].addEventListener('click', function(){
+            if(slidepage >= 1){
+                slidepage -= 1;
+                position = -300*slidepage;
+                slidewrap.style.transform = `translateX(${position}px)`;
+            }
+        })
+        /*mousedown - 마우스 클릭했을때 / mouseup - 마우스 떘을때 / mousemove - 마우스 움직일때*/
+        let start = 0;
+        let move = 0;
+        let point = 0;
+        let click = false;
+        document.querySelector('.slide-wrap').addEventListener('mousedown', function(e){
+            start =  e.clientX
+            console.log(start) // 현재 마우스 위치 X좌표
+            click = true;
+        })
+        document.querySelector('.slide-wrap').addEventListener('mousemove', function(e){
+            point = e.clientX - start
+            if(click == true){
+                slidewrap.style.transform = `translateX(${point}px)`;
+            }
+            console.log(point);
+        })
+        document.querySelector('.slide-wrap').addEventListener('mouseup', function(e){
+            click = false;
+            if(e.clientX - start < -100){
+                slidepage += 1;
+                slidewrap.style.transform = `translateX(-300px)`
+            }
+        })
+
+    </script>
+    <!---->
+    <script>
+        function 함수(paramiter){
+            console.log('앙')
+            return 123 // 함수 쓰고 그 자리에 뭔가 남기고 싶을때(반환)
+            console.log(1) // return 이후엔 함수가 종료된 것으로 인지되어 해당 명령어는 작동이 안됨
+        }
+        let 변수 = 함수();
+        console.log(변수)
+        /**/
+        function vat(a){
+            return a * 0.1 * 0.6 * 0.5
+        }
+        console.log(vat(60000))
+        // 소수점 연산 팁 - 컴퓨터는 계산할때 모든 숫자를 이진법을 이용해 계산하는데 소수점을 넣으면 
+        // n.010100100110...이렇게 나올수 있는데 이 경우 중간에 짜르고 계산을 시작해서 조금의 오차가 생길 수 있다.
+        // 그래서 방안으로 .toFixed(소수점 몇째 자리인지 입력) 라는 반올림 명령어를 사용한다.
+        // 그런데 .toFixed()를 쓰면 해당 계산결과가 '문자'로 표현됨
+        // 이걸 숫자로 표현하고 싶다면 parseFloat(해당 함수)를 입력하면 숫자로 변함.
+        function 반올림(a){
+            let num = (a * 1.1).toFixed(1)
+            return parseFloat(num)
+        }
+        console.log(반올림(3))
+        /*숙제*/
+        
+        function ms(a, b){
+            let result = a * 60000 + b * 1000;
+            return result
+        }
+        console.log(ms(1, 30))
+        console.log(ms(2, 10))
+
+        function discount(a, b){
+            let result = (a*0.9).toFixed(1);
+            if(b == true){
+               return parseFloat(result) - 1.5
+            } else {
+                return parseFloat(result)
+            }
+        }
+        console.log(discount(70.3, true));
+        console.log(discount(70.3, false));
+    </script>
+
+    <!---->
+
+</body>
+</html>

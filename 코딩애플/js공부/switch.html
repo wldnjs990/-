@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h4>물에 빠지면 누구먼저 구할 것임?</h4>
+    <div class="btn-box">
+        <button class="btn">와이프</button>
+        <button class="btn">부모님</button>
+        <button class="btn">키우던 개</button>
+    </div>
+    
+    <script>
+        let 변수 = 2 + 1;
+        switch(변수){
+            case 3:
+                alert('변수가 3이네요');
+                break
+            case 4:
+                alert('변수가 4이네요');
+                break
+            default:
+                alert('변수가 해당하지 않네요');
+                break
+        }
+        /*switch*/
+        // case == 결과값이 ~일 경우 / default == 결과값이 해당하지 않을 경우(else)
+        // break == switch에서 case에 해당하는 조건이 발견되면 그 부분 부터 아래로 쭉 코드를 실행시킨다. 그래서 원치 않는다면 break를 넣어 함수를 멈춰야 한다.
+
+
+        /*switch와 if문 차이점*/
+        // switch는 변수 1가지만 테스트를 할 수 있지만 if문은 여러가지 조건식을 활용해 테스트 할 수 있다.
+        // 대신 switch는 if문 보다 훨씬 가독성 좋고 깔끔하게 만들 수 있다.
+        // 변수 하나만 검사할 때 간편하게 사용하고 싶다  == switch
+        // 여러가지 변수를 검사해야 한다 == if
+        let btn = document.querySelectorAll('.btn')
+        for(i = 0; i < btn.length; i++){
+            document.querySelectorAll('.btn')[i].addEventListener('click', function(e){
+                switch(e.target.innerText){
+                    case '와이프':
+                        alert('아내를 사랑하시네요')
+                        break
+                    case '부모님':
+                        alert('부모님을 사랑하시네요')
+                        break
+                    case '키우던 개':
+                        alert('멍뭉이를 사랑하시네요')
+                        break
+                }
+            })
+        }
+        
+    </script>
+</body>
+</html>

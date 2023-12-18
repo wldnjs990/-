@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="card-group container">
+        <div class="card">
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            <h5>Card title</h5>
+            <p>가격 : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            <h5>Card title</h5>
+            <p>가격 : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/600">
+          <div class="card-body">
+            <h5>Card title</h5>
+            <p>가격 : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+          </div>
+        </div>
+      </div>
+    
+      
+      <script>
+        var products = [
+          { id : 0, price : 70000, title : 'Blossom Dress' },
+          { id : 1, price : 50000, title : 'Springfield Shirt' },
+          { id : 2, price : 60000, title : 'Black Monastery' }
+        ];
+
+        let main = document.querySelectorAll('.card-body')
+        for(i = 0; i < 3; i++){
+            let child1 = main[i].childNodes[1]
+            console.log(child1)
+            let child2 = main[i].childNodes[3]
+            console.log(child2)
+            child1.innerHTML = products[i].title;
+            child2.innerHTML = "가격 : " + products[i].price;
+        }
+        
+        let a = '안녕'
+        console.log('문자' + a + '문자');
+        console.log(`문자${a}문자`)
+      </script> 
+</body>
+</html>

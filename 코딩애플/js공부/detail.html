@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <style>
+        ul.list {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          border-bottom: 1px solid #ccc;
+        }
+        ul.list::after {
+          content: '';
+          display: block;
+          clear: both;
+        }
+        .tab-button {
+          display: block;
+          padding: 10px 20px 10px 20px;
+          float: left;
+          margin-right: -1px;
+          margin-bottom: -1px;
+          color: grey;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        .orange {
+          border-top: 2px solid orange;
+          border-right: 1px solid #ccc;
+          border-bottom: 1px solid white;
+          border-left: 1px solid #ccc;
+          color: black;
+          margin-top: -2px;
+        }
+        .tab-content {
+          display: none;
+          padding: 10px;
+        }
+        .show {
+          display: block;
+        }
+      </style>
+      
+      <div class="container mt-5">
+        <ul class="list">
+          <li class="tab-button orange" data-id="0">Products</li>
+          <!--document.queryselector('.tab-button').dataset.id-->
+          <li class="tab-button" data-id="1">Information</li>
+          <li class="tab-button" data-id="2">Shipping</li>
+          <li class="tab-button" data-id="3">etc</li>
+        </ul>
+        <div class="tab-content show">
+          <p>상품설명입니다. Product</p>
+        </div>
+        <div class="tab-content">
+          <p>스펙설명입니다. Information</p>
+        </div>
+        <div class="tab-content">
+          <p>배송정보입니다. Shipping</p>
+        </div>
+        <div class="tab-content">
+            <p>추가띠. chugatti</p>
+          </div>
+      </div> 
+
+      <div class="container mt-3">
+        <div class="card p-3">
+          <span class="car">소나타</span> / <span class="price">가격</span>
+        </div>
+      </div>
+
+      <script>
+        // 여러가지 변수 저장하고 싶을때 == Array / Object
+        let car = ['소나타', '투싼', '람보르기니']; // Array 자료형 *array 변형 메소드들 찾아보기
+        car[0] = '아반떼'
+        console.log(car.slice(0,2)); // array 자르기
+        console.log(car.sort()) // array 순서정렬(123 abc 한글 순으로 정렬)
+        let car2 = {name : '소나타', price : 60000} // Object 자료형(이름 붙여서 저장 가능 - key(name같은 이름부분)/ value(소나타 같은 값))
+        console.log(car2.name);
+        car2.price = [50000, 6000, 4000];
+        console.log(car2.price);
+        // console.log()로 변수 확인할때 {} == Object자료(object명으로 변수 가져옴) / [] == Array 자료{array 순서로 변수 가져옴}
+
+      </script>
+
+      <form class="container-2 my-5 form-group">
+        <p>상품선택</p>
+        <select class="form-select mt-2">
+          <option>모자</option>
+          <option class="open shirt">셔츠</option>
+          <option class="open pants">바지</option>
+        </select>
+        <select class="hide form-select size off">
+          <option>사이즈 기입</option>
+          <option>사이즈 기입</option>
+          <option>사이즈 기입</option>
+        </select>
+      </form>
+
+      <div class="test">
+        <h4>테스트-1</h4>
+      </div>
+      <div class="test-2">
+        <h4>테스트-2</h4>
+      </div>
+      <script>
+        // 자바스크립트로 html 생성하는법
+        let a = document.createElement('p'); // creareElement() == 요소를 만들어주세요.
+        a.innerHTML = '안녕';
+        document.querySelector('.test').appendChild(a); // appendChild() == 해당 태그에 자식요소로 달아주세요.
+
+        let b = '<p>하이<p>';
+        document.querySelector('.test-2').insertAdjacentHTML('beforeend', b); // insertAdjacentHTML == 해당 태그 어디부분 위치에 이 내용을 추가해주세요(createElement보다 더 간편).
+        $('.test-2').append(b); // jquery버전 insertAdjacentHTML
+      </script>
+
+      <form action="" method="post">
+        
+        <!--서버로 데이터 보내는법 = post(댓글요청, 블로그포스트 등)
+            서버로 데이터 받는법 = get
+            get / post 명령어로 요청하면 브라우저가 새로고침 됨.
+
+            *그래서 "AJAX"를 사용하먀 서버랑 통신함.
+        -->
+      </form>
+
+      <script> // 서버통신
+        $.get('https://codingapple1.github.io/hello.txt')
+        .done(function(e){
+          console.log(e); // function의 파라미터에 데이터가 저장되고 함수에서 파라미터를 넣어 사용 가능
+        }) // ajax로 get 요청하는 코드
+        .fail(function(){
+          console.log('실패함');
+        }) // 데이터 받는걸 실패했을떄 사용하는 코드
+
+        /*$.post('https://codingapple1.github.io/hello.txt', {name : 'kim'}).done(function(i){
+          console.log(i)
+        }) // ajax로 post 요청하는 코드*/
+        $.get('https://codingapple1.github.io/price.json')
+        .done(function(a){
+          console.log(a)
+          console.log(`가격은 ${a.price} 원 입니다`)
+        })
+        .fail(function(){
+          console.log('가격 전송 실패')
+        })
+
+        // 굳이 ajax가 아니더라도 'fetch'라는 브라우저 기본 함수 사용하면 ajax처럼 서버랑 통신 가능
+        fetch('https://codingapple1.github.io/price.json')
+        // 모든 데이터 통신은 문자형태(json)으로 교환됨 - 그래서 문자로 된 정보를 array나 object로 바꾸고 싶으면 fetch에선 다음과 같은 코드를 사용함
+        .then(res => res.json()) 
+        // 하지만 jquery로 사용하는 ajax는 json을 자동으로 array나 object로 변환해 주기 떄문에 이런 명령어를 추가로 쓸 필요가 없다.
+        .then(data => {
+          console.log(data.price)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        // (참고) 서버와 유저는 문자자료만 주고받을 수 있음.
+        // (참고) ajax를 편하게 쓰고 싶을때 쓰는 라이브러리에 "axios"라이브러리가 있음.
+      </script>
+
+      <script src="js/detail.js"></script>
+</body>
+</html>
