@@ -27,7 +27,7 @@ git diff / git difftool(깃에 저장된 소스코드 비교하기)
 
 * 나는 git graph 확장팩 다운받아서 사용하고 있음
 
-git branch(현재 작업물 복사본 만들기)
+git branch(현재 작업물 복사본 만들기) git switch(branch 전환하기)
 1. "git branch 제목"를 입력하면 파일 복사본을 만든다.
 2. "git switch branch명"을 입력하면 작업파일을 해당 복사본으로 바꿔준다.
 3. branch는 그냥 작업공간 정도로 생각하자. 지금 작업하고 있는 이 소스도 main branch이다.
@@ -36,3 +36,20 @@ git branch(현재 작업물 복사본 만들기)
 5. 터미널에서 내가 저장한 commit을 확인하려 "git log --all --oneline"를 사용할때 "--graph"를 추가하면 branch 끼리 분류를 해서 보여준다.
 6. "git merge branch명"을 입력하면 test에서 만든 코드가 마음에 들어서 main과 합치고 싶을때 사용한다.
 7. 만약 merge를 이용하여 합칠때 중복되는 코드가 발생한다면 수동으로 수정해서 commit 해야한다.
+
+git merge 다양한기능들
+1. "3-way merge" == 현재 branch와 main branch의 변경사항을 한꺼번에 merge 시켜준다.(저장하려는 branch들에 전부 commit 사항이 있을시 사용)
+2. "fast-foward merge" == 해당하는 branch를 main branch로 지칭한다.(main branch에 신규 commit 사항이 없을 경우 사용)
+    *main branch에 신규 commit이 없을 경우 자동으로 fast-forward merge가 실행된다.
+3. "merge --no-ff" == fast-foward명령어가 자동으로 실행되는 것을 막고 3-way merge를 실행한다.
+4. "git branch -d branch명" == merge 완료후 필요없어진 branch를 삭제할때 사용
+5. "git branch -D branch명" == 실수로 만든 branch를 삭제할때 사용
+
+rebase(merge처럼 branch 합칠때 사용)
+1. "git rebase" == main branch에 신규 commit이 발생했을때 commit 이전의 main branch의 서브 branch들의 commit사항들의 내용을 commit이 발생한 main branch에게로 옮길 수 있다.
+    (이건 코딩애플 강의에 있는 그림을 보면 이해하기 편하다.)
+2. merge 하기 전에 위치를 이동해주는 명령어라 위치 변경 후에 "fast-forward merge"로 합치면 된다.
+3. "3-way merge"랑 똑같은데 왜 굳이 이렇게 하냐? == 이렇게 만들면 git log 볼 때 내역이 더 깔끔하게 정리된다네
+
+squash and merge(git log 내역 깔끔하게 정리하면서 merge 하는 방법)
+1. "squash and merge" == 서브 branch 안에 있던 commit 내용들을 합쳐서 main branch의 commit으로 전환시켜준다.
