@@ -6,6 +6,7 @@ git 사용법
 5. " git config --global user.name "홍길동" " 터미널에 다음과 같이 입력해 유저 이름 등록을 한다.
 6. 정보 입력을 완료했으면 애디터를 열고  해당 파일을 불러온 후에 "ctrl + shift + `"단축키로 애디터 터미널을 연다.
 * 중요 * 7. "git init"를 애디터 터미널에 입력해 해당 파일이 git의 영향을 받게 만든다. (이거 안 걸면 깃 시작 못 함)
+            * "git init"은 해당 파일의 repository(저장소)를 만드는 명령어다.
 8. "git add 파일명" 을 사용하면 코딩을 한 후에 만들어진 데이터 스냅샷(사진을 찍은것 처럼 데이터 형태를 저장해 어떤 이유로 코드 저장이 안되었을 시 백업의 역할을 한다.) 
     을 staging area에 저장할 수 있다.(staging area == 데이터가 변환되기 전에 원시/처리되지 않은 데이터가 있는 영역)
 9. " git commit -m '메모할 내용' " 을 사용하면 stating area에 저장된 파일들을 repository(저장소)에 commit(맡기다) 할 수 있다.
@@ -55,11 +56,30 @@ squash and merge(git log 내역 깔끔하게 정리하면서 merge 하는 방법
 1. "squash and merge" == 서브 branch 안에 있던 commit 내용들을 합쳐서 main branch의 commit으로 전환시켜준다.
 
 git revert / git reset / git restore (코드 짜다 실수헸을때 되돌아가는 명령어)
-1. 파일 복구하는 법 ([] <- 무시)
+1. 파일 복구하는 법(restore) ([] <- 무시)
     - [git restore "해당 파일명(ex. --.html)"]을 사용하면 컴퓨터의 ctrl + z 기능처럼 해당 파일을 마지막으로 commit 한 시점으로 되돌려준다.
     - [git restore --source "log에 적혀있는 commit 코드(ex. 2fc907d)" "해당 파일명(ex. --.html)"]을 사용하면 해당 commit의 시점으로 파일 전체를 되돌려준다.
     - [git restore --staged "해당 파일명(ex. --.html)"]을 사용하면 git add 를 시켜 staging을 해놓은 파일을 취소 시킬 수 있다.
 * log 중간에 끼어 있는 기록 자체를 삭제 시킬 수는 없음(과거 조작 불가능 ex. a, b, c -> a, c 불가) 
 * 하지만 log 중간에 끼어 있는 기록에서 작업한 내용을 제거한 commit을 새로 생성 하는 것이 가능하다(ex. a, b, c -> a, b, c, d(b의 작업내용이 삭제된 내용 a, c))
+2. 파일 삭제하고 새로 만드는 법(revert)
     - [git revert "log에 적혀있는 commit 코드(ex. 2fc907d)"]을 입력하면 해당 commit의 내용이 삭제된 새로운 commit을 만들게 된다.
-    
+        *코드를 여러개 입력하면 입력한 코드 전부를 삭제한 파일을 만들 수 있다.
+    - [git revert HEAD]를 입력하면 최근 commit한 코드 내용을 삭제한 파일을 만들 수 있다.
+    * git revert로 merge로 생성된 commit도 취소 가능하다.
+3. 파일 리셋 하는 법
+    - [git reset --hard "commit 코드"]을 사용하면 해당 commit의 시점으로 모든 정보를 초기화 시킨다.(하드리셋)
+        * 협업에선 잘못하면 큰일나니 앵간해선 쓰지 않기
+    - [git reset --soft "commit 코드"]을 사용하면 hard리셋과 같이 정보를 초기화 하지만 변동사항을 지우지 않고 스테이징(add)해놓는다.
+        * 리셋 하고 한번에 스테이징(add)까지 할 때 씀
+    - [git reset --mixed "commit 코드"]을 사용하면 hard리셋과 같이 정보를 초기화 하지만 변동사항을 지우지 않고 스테이징(add)을 하지 않은채로 둔다.
+        * 리셋 하고 스테이징(add)은 하지 않을 때 사용
+
+git push (내 코드 업로드 하기)
+* git 안에 local repository를 통하여 내 코드 commit을 저장 할 수 있다.
+* 그러나 컴퓨터의 오류나 고장 등으로 인하여 깃이 작동을 못하게 되면 그동안의 파일들이 다 날라가게 된다.
+* 그런 불상사를 막기 위해 온라인 원격 저장소(repository)를 이용하는 것이고 그 온라인 원격 저장소가 바로 "git hub"다.
+* 추가로 온라인 저장소를 타인이 사용할 수 있게 해서 온라인 협업도 가능하게 된다.
+1. "git push -u "원격저장주소" "해당 branch 이름" "을 사용하면 현재까지의 commit 정보를 원격 저장소(repository)에 저장시킬 수 있다.
+2. "git remote add "변수명" "원격저장주소" "를 사용하면 "원격저장주소"의 길이가 너무 길어 저장 할 때 마다 불편함을 느낄때 해당 주소를 변수 처리하여 축약해서 사용할 수 있다.
+    *현재 나는 깃 주소를 "practice"라는 변수 이름으로 저장했음.
